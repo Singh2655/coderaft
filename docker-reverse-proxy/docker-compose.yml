@@ -1,0 +1,18 @@
+version: "3"
+services:
+  reverse-proxy-app:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    command: npm run dev
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/app
+    networks:
+      - repl-lit-network # Use the custom network here
+
+networks:
+  repl-lit-network:
+    external: true # Indicates that this is an external, pre-existing network
